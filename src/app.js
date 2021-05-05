@@ -1,12 +1,19 @@
-import React from 'react'
+import * as React from 'react'
 import ReactDOM from 'react-dom'
+import { useAuth, AuthProvider } from './context/auth-context'
+import Authenticated from './Authenticated'
+import Unauthenticated from './Unauthenticated'
 
 function App() {
+    const { user } = useAuth();
+    console.log(user)
     return (
-        <div>
-            <h1>Hello react app</h1>
-        </div>
+        user ? <Authenticated /> : <Unauthenticated /> 
     )
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+    <AuthProvider>
+        <App />
+    </AuthProvider>
+, document.getElementById("root"));
