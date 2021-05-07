@@ -1,22 +1,58 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth-context'
+import { loginUser, signupUser } from '../../utils/app-requests'
 
 export default function AuthForm(props) {
-    const { login, signup } = useAuth();
+    const { setUser } = useAuth();
     const [username, setUsername] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [error, setError] = React.useState(false);
 
     function handleSubmit(e) {
         e.preventDefault()
         if (props.type === "signup") {
-            signup({ username, email, password })
-        }
+            signupUser({ username, email, password })
+            .then(res => {
+                if (res.errMsg) {
+                    throw new Error(res.errMsg)
+                }
+                else {
+                    setUser(res.data)
+                }
+            })
+            .catch(err => { 
+                console.log('catch err in component', err.message)
+                setError(err.message)
+            })
+        }  
         else {
-            login({ email, password })
+            loginUser({ email, password })
+            .then(res => {
+                if (res.errMsg) {
+                    throw new Error(res.errMsg)
+                }
+                else {
+                    setUser(res.data)
+                }
+            })
+            .catch(err => {
+                console.log('catch err in component', err.message)
+                setError(err.message)
+            })
         }
+        setUsername('')
+        setEmail('')
+        setPassword('')
     }
+    
+    React.useEffect(() => {
+        setTimeout(() => {
+            setError('')
+        }, 3000);
+        return () => clearTimeout()
+    }, [error])
 
     return (
         <section>
@@ -28,6 +64,7 @@ export default function AuthForm(props) {
                     id="username" 
                     type="text" 
                     name="username"
+                    value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
@@ -38,6 +75,7 @@ export default function AuthForm(props) {
                     id="email" 
                     type="text" 
                     name="email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
@@ -47,9 +85,11 @@ export default function AuthForm(props) {
                     id="password" 
                     type="password" 
                     name="password"
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                { error ? <div>{ error }</div> : null}
                 <button type="submit">Submit</button>
             </form>
             { props.type === "signup" ? 

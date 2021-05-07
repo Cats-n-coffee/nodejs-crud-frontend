@@ -7,14 +7,12 @@ axios.interceptors.request.use(config => {
         "Accept": "*/*",
         "Content-Type": "application/json"
     }
-    console.log(config)
     return config
 }, err => {
     return Promise.reject(err)
 })
 
-axios.interceptors.request.use(res => {
-    console.log(res)
+axios.interceptors.response.use(res => {
     return res;
 }, err => {
     return Promise.reject(err)

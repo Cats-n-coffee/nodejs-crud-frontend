@@ -1,4 +1,5 @@
 import axios from './axios'
+import { useAuth } from '../context/auth-context'
 
 function storeUserInLocalStorage(key, user) {
     return window.localStorage.setItem(key, user)
@@ -15,6 +16,11 @@ function loginUser(data) {
         console.log(res)
         storeUserInLocalStorage('id', res.data._id)
         storeUserInLocalStorage('email', res.data.email)
+        return res;
+    })
+    .catch(err => {
+        console.log('loginUser err', err.response.data)
+        return err.response.data;
     })
 }
 
@@ -24,6 +30,11 @@ function signupUser(data) {
         console.log(res)
         storeUserInLocalStorage('id', res.data._id)
         storeUserInLocalStorage('email', res.data.email)
+        return res;
+    })
+    .catch(err => {
+        console.log('signupUser err', err.response.data)
+        return err.response.data;
     })
 }
 
