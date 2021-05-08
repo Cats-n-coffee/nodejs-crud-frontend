@@ -5,7 +5,7 @@ const AuthContext = React.createContext();
 
 function AuthProvider(props) {
     const [user, setUser] = React.useState(
-        window.localStorage.getItem('id') || null
+        JSON.parse(window.localStorage.getItem('user')) || null
     )
 
     const logout = () => {

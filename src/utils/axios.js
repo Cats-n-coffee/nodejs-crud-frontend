@@ -7,6 +7,7 @@ axios.interceptors.request.use(config => {
         "Accept": "*/*",
         "Content-Type": "application/json"
     }
+    console.log(config)
     return config
 }, err => {
     return Promise.reject(err)

@@ -5,17 +5,11 @@ function storeUserInLocalStorage(key, user) {
     return window.localStorage.setItem(key, user)
 }
 
-function getData() {
-    return axios.get('/getting')
-    .then(res => console.log(res))
-}
-
 function loginUser(data) {
     return axios.post('/login', data)
     .then(res => { 
         console.log(res)
-        storeUserInLocalStorage('id', res.data._id)
-        storeUserInLocalStorage('email', res.data.email)
+        storeUserInLocalStorage('user', JSON.stringify(res.data))
         return res;
     })
     .catch(err => {
@@ -28,8 +22,7 @@ function signupUser(data) {
     return axios.post('/signup', data)
     .then(res => {
         console.log(res)
-        storeUserInLocalStorage('id', res.data._id)
-        storeUserInLocalStorage('email', res.data.email)
+        storeUserInLocalStorage('user', JSON.stringify(res.data))
         return res;
     })
     .catch(err => {
@@ -38,9 +31,22 @@ function signupUser(data) {
     })
 }
 
-function postInvoice(data) {
-    return axios.post('/postinvoice', data)
-    .then(res => console.log(res))
+function addNewInvoice(data) {
+    return axios.post('/newinvoice', data)
+    .then(res => {
+        console.log(res)
+        return res;
+    })
+    .catch(err => {
+        console.log('addNewinvoice err', err.response)
+        return err.response.data;
+    })
 }
 
-export { getData, loginUser, signupUser, postInvoice }
+function findInvoice(data) {
+    return axios.get('/selectinvoice', { params: { _id: data } })
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
+
+export { findInvoice, loginUser, signupUser, addNewInvoice }

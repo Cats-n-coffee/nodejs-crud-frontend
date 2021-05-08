@@ -9,7 +9,6 @@ export default function Authenticated() {
         <div>
             <h2>auth</h2>
             <PortalScreen />
-            <button onClick={ () => getData() }>click</button>
             <button onClick={ () => logout() }>logout</button>
         </div>
         

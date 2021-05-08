@@ -48,10 +48,10 @@ export default function AuthForm(props) {
     }
     
     React.useEffect(() => {
-        setTimeout(() => {
+        let timer1 = setTimeout(() => {
             setError('')
         }, 3000);
-        return () => clearTimeout()
+        return () => clearTimeout(timer1)
     }, [error])
 
     return (
