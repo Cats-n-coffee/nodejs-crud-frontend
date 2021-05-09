@@ -1,5 +1,4 @@
 import React from 'react'
-import { useFindInvoice } from '../../hooks/useFindInvoice'
 
 function InvoiceSearch(props) {
     const [search, setSearch] = React.useState('')
@@ -8,14 +7,14 @@ function InvoiceSearch(props) {
         e.preventDefault()
         console.log('searching')
         props.setSearchParams({ invoice_date: search })
-        props.setInvoiceAdded(true)
+        props.setInvoiceAdded(props.invoiceAdded + 1)
     }
 
     return (
         <div>
             <form onSubmit={ searchInvoices }>
                 <label htmlFor="invoice-search"></label>
-                <input id="invoice-search" type="text" onChange={ (e) => setSearch(e.target.value) }/>
+                <input id="invoice-search" type="date" onChange={ (e) => setSearch(e.target.value) }/>
                 <button type="submit">Search</button>
             </form>
         </div>

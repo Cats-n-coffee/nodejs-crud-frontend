@@ -1,12 +1,12 @@
 import React from 'react'
 import { findInvoice } from '../../utils/app-requests'
 import { useAuth } from '../../context/auth-context'
-import { useFindInvoice } from '../../hooks/useFindInvoice'
-import InvoiceSearch from './InvoiceSeach'
+//import { useFindInvoice } from '../../hooks/useFindInvoice'
+import InvoiceSearch from './InvoiceSearch'
+import Invoice from './Invoice'
 
-function Table(props) {
+function InvoiceList(props) {
     const { user } = useAuth()
-    //const [userInvoices] = useFindInvoice(props.setInvoiceAdded, props.invoiceAdded, user._id)
     const [userInvoices, setUserInvoices] = React.useState([])
     const [searchParams, setSearchParams] = React.useState(null)
 
@@ -19,7 +19,6 @@ function Table(props) {
             findInvoice(params)
             .then(data => {
                 setUserInvoices(data)
-                props.setInvoiceAdded(false)
             })
             //.catch(err => console.log(err))
         }
@@ -29,13 +28,19 @@ function Table(props) {
         return () => { return isUpdating = false };
     }, [props.invoiceAdded])
 
+    function openInvoice() {
+        props.setInvoiceOpen(true)
+
+        return <Invoice setInvoiceOpen={ props.setInvoiceOpen }/>
+    }
+
     return (
         <div>
             <h3>Table component</h3>
             <ul>
                 { userInvoices.length > 0 ? userInvoices.map(invoice => {
                     return (
-                        <li key={invoice.invoice_id}>
+                        <li key={invoice.invoice_id} onClick={ openInvoice }>
                             <span>{invoice.item}</span>
                             <span>{invoice.price}</span>
                             <span>{invoice.invoice_date}</span>
@@ -53,4 +58,4 @@ function Table(props) {
     )
 }
 
-export default Table
+export default InvoiceList

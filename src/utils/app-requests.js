@@ -46,7 +46,10 @@ function addNewInvoice(data) {
 function findInvoice(data) {
     console.log(data)
     return axios.get('/selectinvoice', { params: { ...data } })
-    .then(res => res.data)
+    .then(res => {
+        console.log('response data', res.data)
+        return  res.data;
+    })
     .catch(err => console.log(err))
 }
 
