@@ -13,6 +13,7 @@ function InvoiceForm(props) {
         console.log('submitted')
         // perform validation here or call other function for it
         addNewInvoice({ user_id: user._id, item, price, invoice_date: invoiceDate })
+        props.setInvoiceAdded(true)
     }
 
     return (props.open) ? (
