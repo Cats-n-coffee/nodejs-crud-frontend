@@ -5,7 +5,7 @@ import InvoiceList from '../components/portalElements/InvoiceList'
 
 export default function PortalScreen(props) {
     const [openInvoiceForm, setOpenInvoiceForm] = React.useState(false)
-    const [invoiceAdded, setInvoiceAdded] = React.useState(0)
+    const [invoiceAction, setInvoiceAction] = React.useState(0)
     const [invoiceOpen, setInvoiceOpen] = React.useState(false)
 
     return (
@@ -15,11 +15,12 @@ export default function PortalScreen(props) {
             <InvoiceForm 
                 open={ openInvoiceForm } 
                 setOpenInvoiceForm={ setOpenInvoiceForm } 
-                setInvoiceAdded={ setInvoiceAdded }
+                setInvoiceAction={ setInvoiceAction }
+                invoiceAction={ invoiceAction }
             />
             <InvoiceList 
-                invoiceAdded={ invoiceAdded } 
-                setInvoiceAdded={ setInvoiceAdded }
+                invoiceAction={ invoiceAction } 
+                setInvoiceAction={ setInvoiceAction }
                 invoiceOpen={ invoiceOpen }
                 setInvoiceOpen={ setInvoiceOpen }
             />

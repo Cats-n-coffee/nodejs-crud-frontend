@@ -1,5 +1,5 @@
 import React from 'react'
-import { findInvoice } from '../../utils/app-requests'
+import { findInvoice, deleteInvoiceFromDb } from '../../utils/app-requests'
 import { useAuth } from '../../context/auth-context'
 //import { useFindInvoice } from '../../hooks/useFindInvoice'
 import InvoiceSearch from './InvoiceSearch'
@@ -9,6 +9,7 @@ function InvoiceList(props) {
     const { user } = useAuth()
     const [userInvoices, setUserInvoices] = React.useState([])
     const [searchParams, setSearchParams] = React.useState(null)
+    const [currentInvoice, setCurrentInvoice] = React.useState(null)
 
     React.useEffect(() => {
         let isUpdating = true
@@ -26,12 +27,23 @@ function InvoiceList(props) {
             return null;
         }
         return () => { return isUpdating = false };
-    }, [props.invoiceAdded])
+    }, [props.invoiceAction])
 
-    function openInvoice() {
+    function openInvoice(invoice) {
         props.setInvoiceOpen(true)
+        setCurrentInvoice(invoice)
+        console.log('invoice clicked')
+    }
 
-        return <Invoice setInvoiceOpen={ props.setInvoiceOpen }/>
+    function deleteInvoice(invoiceId) {
+        setCurrentInvoice(null)
+        props.setInvoiceOpen(false) 
+        
+        deleteInvoiceFromDb({ invoice_id: invoiceId })
+        .then(res => {
+            props.setInvoiceAction(props.invoiceAction + 1)
+        })
+        .catch(err => console.log('err at delete invoice function', err))
     }
 
     return (
@@ -40,7 +52,7 @@ function InvoiceList(props) {
             <ul>
                 { userInvoices.length > 0 ? userInvoices.map(invoice => {
                     return (
-                        <li key={invoice.invoice_id} onClick={ openInvoice }>
+                        <li key={invoice.invoice_id} onClick={ () => openInvoice(invoice) }>
                             <span>{invoice.item}</span>
                             <span>{invoice.price}</span>
                             <span>{invoice.invoice_date}</span>
@@ -50,10 +62,18 @@ function InvoiceList(props) {
             : 'No invoice to show' }
             </ul>
             <InvoiceSearch 
-                invoiceAdded={ props.invoiceAdded }
-                setInvoiceAdded={ props.setInvoiceAdded }
+                invoiceAction={ props.invoiceAction }
+                setInvoiceAction={ props.setInvoiceAction }
                 setSearchParams={ setSearchParams }
             />
+            { props.invoiceOpen ? 
+                <Invoice 
+                    setInvoiceOpen={ props.setInvoiceOpen } 
+                    invoice={ currentInvoice }
+                    setCurrentInvoice={ setCurrentInvoice }
+                    deleteInvoice={ deleteInvoice }
+                /> 
+            : null }
         </div>
     )
 }

@@ -7,7 +7,12 @@ function InvoiceSearch(props) {
         e.preventDefault()
         console.log('searching')
         props.setSearchParams({ invoice_date: search })
-        props.setInvoiceAdded(props.invoiceAdded + 1)
+        props.setInvoiceAction(props.invoiceAction + 1)
+    }
+
+    function showAllInvoices() {
+        props.setSearchParams(null)
+        props.setInvoiceAction(props.invoiceAction + 1)
     }
 
     return (
@@ -17,6 +22,7 @@ function InvoiceSearch(props) {
                 <input id="invoice-search" type="date" onChange={ (e) => setSearch(e.target.value) }/>
                 <button type="submit">Search</button>
             </form>
+            <button type="button" onClick={ showAllInvoices }>show all</button>
         </div>
     )
 }
