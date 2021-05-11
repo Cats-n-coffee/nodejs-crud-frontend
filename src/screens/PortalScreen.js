@@ -8,8 +8,7 @@ export default function PortalScreen(props) {
     const [invoiceOpen, setInvoiceOpen] = React.useState(false)
 
     return (
-        <div>
-            <h1>Portal page</h1>
+        <main>
             <button onClick={ () => setOpenInvoiceForm(true) }>Add Invoice</button>
             <InvoiceForm 
                 open={ openInvoiceForm } 
@@ -23,6 +22,6 @@ export default function PortalScreen(props) {
                 invoiceOpen={ invoiceOpen }
                 setInvoiceOpen={ setInvoiceOpen }
             />
-        </div>
+        </main>
     )
 }

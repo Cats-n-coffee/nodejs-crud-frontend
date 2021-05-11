@@ -19,10 +19,21 @@ function InvoiceSearch(props) {
         <div>
             <form onSubmit={ searchInvoices }>
                 <label htmlFor="invoice-search"></label>
-                <input id="invoice-search" type="date" onChange={ (e) => setSearch(e.target.value) }/>
+                <input 
+                    id="invoice-search" 
+                    type="date" 
+                    onChange={ (e) => setSearch(e.target.value) }
+                    required
+                    />
                 <button type="submit">Search</button>
             </form>
-            <button type="button" onClick={ showAllInvoices }>show all</button>
+            <button 
+                type="button" 
+                onClick={ showAllInvoices }
+                disabled={ !search }
+            >
+                show all
+            </button>
         </div>
     )
 }

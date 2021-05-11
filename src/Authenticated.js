@@ -1,15 +1,21 @@
 import React from 'react'
 import PortalScreen from './screens/PortalScreen'
-import { getData } from './utils/app-requests'
 import { useAuth } from './context/auth-context'
+import ThemeToggler from './components/otherElements/ThemeToggler'
 
 export default function Authenticated() {
-    const { logout } = useAuth();
+    const { user, logout } = useAuth();
     return (
-        <div>
-            <h2>auth</h2>
-            <PortalScreen />
-            <button onClick={ () => logout() }>logout</button>
+        <div className="auth">
+            <header>
+                <div>
+                    <span>Logged in as: </span>
+                    <span>{ user.email }</span>
+                </div>
+                <ThemeToggler />
+                <button onClick={ () => logout() }>logout</button>
+            </header>
+            <PortalScreen />   
         </div>
         
     )

@@ -2,11 +2,6 @@ import React from 'react'
 
 function Invoice(props) {
     const [isEdited, setIsEdited] = React.useState(false)
-    // const [invoiceFields, setInvoiceFields] = React.useState({
-    //     item: "",
-    //     price: 0,
-    //     date: ""
-    // })
 
     function closeInvoice() {
         props.setInvoiceOpen(false)
