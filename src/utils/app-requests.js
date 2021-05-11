@@ -63,4 +63,13 @@ function deleteInvoiceFromDb(data) {
     .catch(err => console.log(err))
 }
 
-export { findInvoice, loginUser, signupUser, addNewInvoice, deleteInvoiceFromDb }
+function updateInvoice(data) {
+    return axios.put('/updateinvoice', data)
+    .then(res => {
+        console.log('update data', res.data)
+        return  res.data;
+    })
+    .catch(err => console.log(err))
+}
+
+export { findInvoice, loginUser, signupUser, addNewInvoice, deleteInvoiceFromDb, updateInvoice }

@@ -1,7 +1,6 @@
 import React from 'react'
-import { findInvoice, deleteInvoiceFromDb } from '../../utils/app-requests'
+import { findInvoice, deleteInvoiceFromDb, updateInvoice } from '../../utils/app-requests'
 import { useAuth } from '../../context/auth-context'
-//import { useFindInvoice } from '../../hooks/useFindInvoice'
 import InvoiceSearch from './InvoiceSearch'
 import Invoice from './Invoice'
 
@@ -40,10 +39,23 @@ function InvoiceList(props) {
         props.setInvoiceOpen(false) 
         
         deleteInvoiceFromDb({ invoice_id: invoiceId })
-        .then(res => {
+        .then(() => {
             props.setInvoiceAction(props.invoiceAction + 1)
         })
         .catch(err => console.log('err at delete invoice function', err))
+    }
+
+    function submitChanges(e) {
+        e.preventDefault()
+        console.log('edited', currentInvoice)
+        props.setInvoiceOpen(false)
+
+        updateInvoice(currentInvoice)
+        .then(res => {
+            console.log(res)
+            props.setInvoiceAction(props.invoiceAction + 1)
+        })
+        .catch(err => console.log('err at submit changes', err))
     }
 
     return (
@@ -72,6 +84,7 @@ function InvoiceList(props) {
                     invoice={ currentInvoice }
                     setCurrentInvoice={ setCurrentInvoice }
                     deleteInvoice={ deleteInvoice }
+                    submitChanges={ submitChanges }
                 /> 
             : null }
         </div>

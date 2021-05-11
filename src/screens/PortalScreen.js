@@ -1,7 +1,6 @@
 import React from 'react'
 import InvoiceForm from '../components/forms/InvoiceForm'
 import InvoiceList from '../components/portalElements/InvoiceList'
-//import InvoiceSearch from '../components/portalElements/InvoiceSearch'
 
 export default function PortalScreen(props) {
     const [openInvoiceForm, setOpenInvoiceForm] = React.useState(false)
