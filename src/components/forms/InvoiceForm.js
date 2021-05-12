@@ -2,6 +2,18 @@ import React from 'react'
 import { addNewInvoice } from '../../utils/app-requests'
 import { useAuth } from '../../context/auth-context'
 
+export function checkInput(item) {
+    if (typeof item === "number") {
+        return item.toString();
+    }
+    else if (typeof item === null || typeof item === undefined) {
+        return '';
+    }
+    else if (typeof item === "string") {
+        return item;
+    }
+}
+
 function InvoiceForm(props) {
     const { user } = useAuth()
     const [item, setItem] = React.useState('')

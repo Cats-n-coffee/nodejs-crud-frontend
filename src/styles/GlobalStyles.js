@@ -20,9 +20,10 @@ const GlobalStyles = createGlobalStyle`
 
     html, body {
         position: relative;
-        min-height: 100vh;
+        height: 100vh;
         width: 100%;
         font-size: 10px;
+        font-family: 'Open Sans', sans-serif;
     }
 
     body[data-theme="light"] {
@@ -48,6 +49,23 @@ const GlobalStyles = createGlobalStyle`
 
     a {
         text-decoration: none;
+    }
+
+    button, input, textarea {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #root {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
     }
 `;
 

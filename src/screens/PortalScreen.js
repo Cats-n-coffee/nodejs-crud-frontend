@@ -1,6 +1,7 @@
 import React from 'react'
 import InvoiceForm from '../components/forms/InvoiceForm'
 import InvoiceList from '../components/portalElements/InvoiceList'
+import { MainPortalStyled, AddInvoiceBtn } from './styles'
 
 export default function PortalScreen(props) {
     const [openInvoiceForm, setOpenInvoiceForm] = React.useState(false)
@@ -8,8 +9,8 @@ export default function PortalScreen(props) {
     const [invoiceOpen, setInvoiceOpen] = React.useState(false)
 
     return (
-        <main>
-            <button onClick={ () => setOpenInvoiceForm(true) }>Add Invoice</button>
+        <MainPortalStyled>
+            <AddInvoiceBtn onClick={ () => setOpenInvoiceForm(true) }>+</AddInvoiceBtn>
             <InvoiceForm 
                 open={ openInvoiceForm } 
                 setOpenInvoiceForm={ setOpenInvoiceForm } 
@@ -22,6 +23,6 @@ export default function PortalScreen(props) {
                 invoiceOpen={ invoiceOpen }
                 setInvoiceOpen={ setInvoiceOpen }
             />
-        </main>
+        </MainPortalStyled>
     )
 }

@@ -5,7 +5,7 @@ import SignupScreen from './screens/SignupScreen'
 
 export default function Unauthenticated() {
     return (
-        <div>
+        <div className="container">
             <h2>unauth</h2>
             <Router>
                 <Switch>

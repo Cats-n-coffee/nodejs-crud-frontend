@@ -19,7 +19,7 @@ export const ThemeTogglerStyled = styled.button`
         width: 18px;
         height: 18px;
         border-radius: 50%;
-        background: var(--color-fonts);
+        background: var(--color-background);
         z-index: 2;
     }
 `;

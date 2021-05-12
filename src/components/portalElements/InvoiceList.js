@@ -3,6 +3,7 @@ import { findInvoice, deleteInvoiceFromDb, updateInvoice } from '../../utils/app
 import { useAuth } from '../../context/auth-context'
 import InvoiceSearch from './InvoiceSearch'
 import Invoice from './Invoice'
+import { InvoiceListStyled } from './styles'
 
 function InvoiceList(props) {
     const { user } = useAuth()
@@ -59,8 +60,12 @@ function InvoiceList(props) {
     }
 
     return (
-        <div>
-            <h3>Table component</h3>
+        <InvoiceListStyled>
+            <InvoiceSearch 
+                invoiceAction={ props.invoiceAction }
+                setInvoiceAction={ props.setInvoiceAction }
+                setSearchParams={ setSearchParams }
+            />
             <ul>
                 { userInvoices.length > 0 ? userInvoices.map(invoice => {
                     return (
@@ -73,11 +78,6 @@ function InvoiceList(props) {
                 })
             : 'No invoice to show' }
             </ul>
-            <InvoiceSearch 
-                invoiceAction={ props.invoiceAction }
-                setInvoiceAction={ props.setInvoiceAction }
-                setSearchParams={ setSearchParams }
-            />
             { props.invoiceOpen ? 
                 <Invoice 
                     setInvoiceOpen={ props.setInvoiceOpen } 
@@ -87,7 +87,7 @@ function InvoiceList(props) {
                     submitChanges={ submitChanges }
                 /> 
             : null }
-        </div>
+        </InvoiceListStyled>
     )
 }
 
