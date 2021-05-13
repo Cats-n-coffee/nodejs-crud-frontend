@@ -16,7 +16,7 @@ function InvoiceSearch(props) {
     }
 
     return (
-        <div>
+        <div data-testid="search-1">
             <form onSubmit={ searchInvoices }>
                 <label htmlFor="invoice-search"></label>
                 <input 
